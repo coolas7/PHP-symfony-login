@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %} Prisijungimas Symf {% endblock %}
+{% block body %}
+
+{% if app.user.usertype == 'ROLE_ADMIN' %}
+<div class="header">
+	<div>
+		<h2>Sukurkite naują užduotį</h2>
+	</div>
+	<div class="formhold">
+		<form id="form" method="POST" action="{{ path('addtask') }}">
+			<div>
+				<label for="_taskname">Užduotis:</label>
+				<br>
+				<input class="logininput" type="text" name="_taskname">
+			</div>
+			<div>
+				<label for="_location">Vieta:</label>
+				<br>
+				<input class="logininput" type="text" name="_location">
+			</div>
+			<div>
+				<label for="_username">Priskirti vartotojui:</label>
+				<select name="_username" class='logininput' >
+					{% if users %}
+						{% for user in users %}	
+							<option name='{{ user.username }}' value='{{ user.username }}'> <br>{{ user.username }}</option>
+						{% endfor %}
+						{% endif %}
+				</select>
+			</div>
+			<div>
+				<label for="_status"></label>
+				<input class="logininput" type="hidden" name="_status" value="nepadaryta">
+			</div>
+			<div>
+				<button type="submit" class="btn" name="createtask"> + Sukurti užduotį</button>
+			</div>
+		</form>
+	</div>
+</div>
+{% else %}
+{% include 'error.html.twig' %}
+{% endif %} 
+{% endblock %}

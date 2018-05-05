@@ -1,0 +1,37 @@
+<div class="header">
+		<h2>Užduočių sąrašas</h2>
+	</div>
+	<div class="content">
+		<!-- vartotojo info -->
+		<div>
+			<img class="logo" src="../img/user.png" >
+			<div class="paddingbot">
+    			<p class="paddingbot">Sveiki, {{ app.user.username }}!</p>
+				<a href="{{ path('logout') }}" class="logout-btn paddingbot">- logout</a>
+			</div>
+			<div class="success">
+				<h3>Užduotys:</h3>
+				{% if tasks %} 
+					{% for task in tasks %}
+						{% if task.username == app.user.username %}
+					<div class="tasks paddingbot paddingtop">
+						<p>Pavadinimas: {{ task.taskname }}</p>
+						<p>ID: {{ task.id }}</p>
+						<p>Kam priskirta: {{ task.username }}</p>
+						<p>Vieta: {{ task.location }}</p>
+						<p>Statusas: {{ task.status }}</p>
+						<div class="floatR">
+							<a class="del-btn edit-btn" href="/padaryta/{{ task.id }}">Padaryta</a>
+							<a class="del-btn" href="/nepadaryta/{{ task.id }}">Nepadaryta</a>
+						</div>
+					</div>		
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<p class="paddingtop">Nėra užduočių</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>	
+

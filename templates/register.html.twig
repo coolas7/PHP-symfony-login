@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %} Registracija Symf {% endblock %}
+{% block body %}
+
+<div class="header">
+	<div>
+		<h2>Registracija</h2>
+	</div>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+	</div>
+</div>
+<div>
+<a style="margin: 20px; position:fixed; top: 20px; left: 20px;" class="del-btn edit-btn" href="{{ path('login') }}">< Atgal</a>
+</div>
+
+{% endblock %}

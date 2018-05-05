@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %} Prisijungimas Symf {% endblock %}
+{% block body %}
+
+<div class="header">
+    <div>
+		<h2>Prisijungti</h2>	
+	</div>
+	{% if error %}
+    <div style="color: red;">
+        {{ error.message|replace({"Bad credentials." : "Neteisingi prisijungimo duomenys.", "An exception occurred in driver: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.": "Nepavyko prisijungti prie duomenų bazės. Bandykite dar kartą."}) }}
+    </div>
+    {% endif %}
+    <form id='form' action="{{ path('login') }}" method="post">
+        <div>
+            <label for="_username">Vardas:</label>
+            <input class='logininput' type="text" id="_username" name="_username" value="{{ last_username }}" />
+        </div>
+        <div>
+            <label for="_password">Slaptažodis:</label>
+            <input class="logininput" type="password" id="_password" name="_password" />
+        </div>
+        {#
+            <input type="hidden" name="_target_path" value="/account" />
+        #}
+        <div>
+            <button class="btn" type="submit">Prisijungti</button>
+        </div>
+    </form>
+</div>
+<div style="position: absolute; display: block; top: 150px; right:100px;">
+	<p style="padding:10px;">Neturite paskyros?</p>
+    <a style="margin-left: 10px;" class="del-btn edit-btn" href="{{ path('register') }}">Registruotis</a> 
+</div>
+
+{% endblock %}

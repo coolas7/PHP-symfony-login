@@ -1,0 +1,61 @@
+	<div class="header">
+		<h2>Administratoriaus valdymo panelė</h2>
+	</div>
+	<div class="content">
+			<!-- vartotojo informacija -->
+		<div>	
+			<img class="logo" src="../img/admin.png">
+			<div>
+    			<p class="paddingbot">Sveiki, {{ app.user.username }}</p>
+    			{% if app.user.usertype == 'ROLE_ADMIN'%}
+				<p class="paddingbot" style="color:blue;"><i>(Admin)</i></p>
+    			{% endif%}
+
+					<a href="{{ path('logout') }}" class="logout-btn" "> - logout</a>&nbsp;
+					<a class="btn" href="{{ path('createuser') }}"> + add user</a>&nbsp;
+					<a class="btn" href="{{ path('createtask') }}"> + add task</a>
+			</div>
+		</div>
+		<!-- sukurti vartotojai -->
+		<div class="profile_info paddingtop">
+			<div id="deleteUser" class="success">
+				<h3>Vartotojai:</h3>
+					{% if users %}
+						{% for user in users %}	
+						<div class='error users';>
+							<p>Vardas: {{ user.username }}</p>
+							<p>ID: {{ user.id }}</p>
+							<p>Email: {{ user.email }}</p>
+							<p>Tipas: {{ user.usertype }}</p>
+							<div class="floatR">
+								<a class="del-btn" href="#" data-id="{{ user.id }}">Trinti</a>	
+							</div>
+						</div>
+						{% endfor %}
+						{% else %}
+						<p>Nėra vartotojų.</p> 
+					{% endif %}			
+			</div>
+				<!-- sukurtos užduotys -->		
+			<div id="deleteTask" style="float: right;" class="success">
+				<h3>Užduotys:</h3>
+				{% if tasks %}
+				{% for task in tasks %}
+				<div class='error tasksadm';>
+					<p>Pavadinimas: {{ task.taskname }}</p>
+					<p>ID: {{ task.id }}</p>
+					<p>Kam priskirta: {{ task.username }}</p>
+					<p>Vieta: {{ task.location }}</p>
+					<p>Statusas: {{ task.status }}</p>
+					<div class="floatR">
+						<a class="del-btn" href="#" data-id="{{ task.id }}">Trinti</a> 
+						<a class="del-btn redaguoti edit-btn" href="/edittask/{{ task.id }}">Redaguoti</a>
+					</div>
+				</div> 
+					{% endfor %}
+					{% else %}
+					<p class="paddingtop">Nėra užduočių.</p>  
+				{% endif %}	
+			</div>
+		</div>
+	</div>

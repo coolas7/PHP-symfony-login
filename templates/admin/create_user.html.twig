@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title %} Prisijungimas Symf {% endblock %}
+{% block body %}
+
+{% if app.user.usertype == 'ROLE_ADMIN' %}
+<div class="header">
+	<div>
+		<h2>Sukurkite naują vartotoją</h2>
+	</div>
+	<div class="formhold">
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+	</div>
+</div>
+{% else %}
+{% include 'error.html.twig' %}
+{% endif %} 
+{% endblock %}

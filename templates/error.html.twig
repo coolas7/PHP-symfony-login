@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %} Pagrindinis Symf {% endblock %}
+{% block body %}
+	<div class="header">
+		<h2>Klaida! Bandykite dar karta.</h2>	
+	</div>
+	<div style="margin: 50px 20px 0 20px;">
+<a class="del-btn edit-btn" href="{{ path(app.request.get('_route')) }}">< Atgal</a>
+</div>
+<!-- 	
+	<p style="margin: 20px;">Neturite paskyros?</p> 
+	<a style="margin: 20px;" class="del-btn edit-btn" href="{{ path('register') }}">Registruotis</a>
+	<br><br><hr><p style="margin: 20px;">Arba</p> <a style="margin: 20px;" class="del-btn edit-btn" href="{{ path('login') }}">Prisijungti</a> -->
+{% endblock %}
