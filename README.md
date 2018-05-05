@@ -1,1 +1,1 @@
-# PHP-symfony-login
+# Part of PHP Symfony login system.
