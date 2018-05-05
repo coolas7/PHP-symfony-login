@@ -1,0 +1,71 @@
+security:
+    access_denied_url: /back
+    # providers:
+    #     in_memory: { memory: ~ }
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        App\Entity\Vart:
+            algorithm: bcrypt
+  
+    providers:
+        chain_provider:
+            chain:
+                providers: [ in_memory, db_provider ]
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: admin
+                        roles: ROLE_ADMIN
+        db_provider:
+            entity:
+                class: App\Entity\Vart
+                property: username
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:  
+            pattern: ^/
+            provider: chain_provider
+
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            form_login: 
+                login_path: login
+                check_path: login
+           
+                always_use_default_target_path: true
+                default_target_path:            /
+                target_path_parameter:        /
+                # use_referer:                    true
+            anonymous: ~
+                # username_parameter: username
+                # password_parameter: password
+                # post_only: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            logout:
+                path: /logout
+                target: /login
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    
+
+    access_control:
+        
+        - { path: ^/padaryta|nepadaryta|userlog/*, roles: ROLE_USER }
+        # - { path: ^/, roles: ROLE_USER }
+        # - { path: ^/deleteuser/*, roles: ROLE_USER }
+        # - { path: ^/deletetask/*, roles: ROLE_USER }
+        - { path: ^/delete/, roles: ROLE_ADMIN, method: 'DELETE'}
+        - { path: ^/login|register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/deleteuser/, roles: ROLE_ADMIN, method: 'DELETE'}
+        # - { path: ^/deletetask/#, roles: ROLE_ADMIN }
+        # - { path: ^/, roles: ROLE_ADMIN }
+    role_hierarchy:
+        ROLE_ADMIN: [ ROLE_ADMIN ]
+
